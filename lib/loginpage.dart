@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/utils/textfield_widget.dart';
+import 'package:flutter_application_2/view/forgotpage.dart';
 import 'package:flutter_application_2/view/homepage.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,60 +20,61 @@ class _HomePageState extends State<HomePage> {
   final _passwordController = TextEditingController();
 
 // TEXTFIELD ///
-  Widget textfieldWidget(
-      {required String hinmtname,
-      required TextEditingController controller,
-      required IconButton iconButton,
-      IconButton? iconHidden,
-      bool obscureText = false}) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7), color: Colors.grey[200]),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: iconButton
-            //  Icon(
-            //   Icons.lock_outline,
-            // ),
-            ,
-            suffixIcon: iconHidden,
-            hintText: hinmtname),
-      ),
-    );
-  }
+  // Widget textfieldWidget(
+  //     {required String hinmtname,
+  //     required TextEditingController controller,
+  //     required Icon iconButton,
+  //     IconButton? iconHidden,
+  //     bool obscureText = false}) {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(7), color: Colors.grey[200]),
+  //     child: TextField(
+  //       controller: controller,
+  //       obscureText: obscureText,
+  //       decoration: InputDecoration(
+  //           border: InputBorder.none,
+  //           prefixIcon: iconButton
+  //           //  Icon(
+  //           //   Icons.lock_outline,
+  //           // ),
+  //           ,
+  //           suffixIcon: iconHidden,
+  //           hintText: hinmtname),
+  //     ),
+  //   );
+  // }
 // TEXTFIELD //////////////////////////////////
 
 // SignIn Button //////////////////////////////////
-  Widget signButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(MediaQuery.of(context).size.width, 50),
-          backgroundColor: Colors.lightBlue[300]),
-      onPressed: () {
-        if (_emailController.text == "admin" &&
-            _passwordController.text == "123") {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MainPage(username: _userController.text),
-              ));
-        } else {
-          final message = SnackBar(
-            content: Text("Incorrect email or password !"),
-            action: SnackBarAction(label: "Done", onPressed: () {}),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(message);
-        }
-      },
-      child: Text(
-        "Sign In",
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
+  // Widget signButton() {
+  //   return ElevatedButton(
+  //     style: ElevatedButton.styleFrom(
+  //         minimumSize: Size(MediaQuery.of(context).size.width, 50),
+  //         backgroundColor: Colors.lightBlue[300]),
+  //     onPressed: () {
+  //       if (_emailController.text == "admin" &&
+  //           _passwordController.text == "123" &&
+  //           _userController.text.isNotEmpty) {
+  //         Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => MainPage(username: _userController.text),
+  //             ));
+  //       } else {
+  //         final message = SnackBar(
+  //           content: Text("Incorrect email or password !"),
+  //           action: SnackBarAction(label: "Done", onPressed: () {}),
+  //         );
+  //         ScaffoldMessenger.of(context).showSnackBar(message);
+  //       }
+  //     },
+  //     child: Text(
+  //       "Sign In",
+  //       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+  //     ),
+  //   );
+  // }
 // SignIn Button //////////////////////////////////
 
   @override
@@ -101,27 +104,25 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 110,
           ),
-          textfieldWidget(
-              hinmtname: "Enter your name",
-              controller: _userController,
-              iconButton:
-                  IconButton(onPressed: () {}, icon: Icon(Icons.person))),
+          TextFieldWidget().textfieldWidget(
+            hinmtname: "Enter your name",
+            controller: _userController,
+            iconButton: Icon(Icons.person),
+          ),
           SizedBox(
             height: 22,
           ),
-          textfieldWidget(
+          TextFieldWidget().textfieldWidget(
               hinmtname: "Enter your email address",
               controller: _emailController,
-              iconButton: IconButton(
-                  onPressed: () {}, icon: Icon(Icons.mail_outline_outlined))),
+              iconButton: Icon(Icons.mail_outline_outlined)),
           SizedBox(
             height: 22,
           ),
-          textfieldWidget(
+          TextFieldWidget().textfieldWidget(
               hinmtname: "Enter your password",
               controller: _passwordController,
-              iconButton:
-                  IconButton(onPressed: () {}, icon: Icon(Icons.lock_outline)),
+              iconButton: Icon(Icons.lock_outline),
               iconHidden: IconButton(
                   onPressed: () {
                     setState(() {
@@ -150,14 +151,43 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 12,
           ),
-          signButton(),
+          TextFieldWidget().signButton(
+              context: context,
+              title: "Sign In",
+              buttonAction: () {
+                if (_emailController.text == "admin" &&
+                    _passwordController.text == "123" &&
+                    _userController.text.isNotEmpty) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MainPage(username: _userController.text),
+                      ));
+                } else {
+                  final message = SnackBar(
+                    content: Text("Incorrect email or password !"),
+                    action: SnackBarAction(label: "Done", onPressed: () {}),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(message);
+                }
+              }),
           SizedBox(
             height: 30,
           ),
-          Text(
-            "Forgot your password?",
-            style: TextStyle(
-                color: Colors.orange[800], fontWeight: FontWeight.bold),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ForgotPage(),
+                  ));
+            },
+            child: Text(
+              "Forgot your password?",
+              style: TextStyle(
+                  color: Colors.orange[800], fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),

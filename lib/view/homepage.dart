@@ -150,7 +150,7 @@ class MainPage extends StatelessWidget {
                 crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 15),
             itemBuilder: (context, index) => Container(
               decoration: BoxDecoration(
-                  color: Colors.amber, borderRadius: BorderRadius.circular(5)),
+                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
             ),
           ),
         ),
@@ -198,7 +198,7 @@ class MainPage extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                username.isNotEmpty ? "Welcome $username" : "Welcome",
+                "Welcome $username",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
               ),
               SizedBox(
