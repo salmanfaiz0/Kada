@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/utils/textfield_widget.dart';
+import 'package:flutter_application_2/view/bottombar.dart';
 import 'package:flutter_application_2/view/forgotpage.dart';
 import 'package:flutter_application_2/view/homepage.dart';
 
@@ -161,8 +162,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            MainPage(username: _userController.text),
+                        builder: (context) => BottomBar(),
                       ));
                 } else {
                   final message = SnackBar(

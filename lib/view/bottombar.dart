@@ -2,15 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application_2/loginpage.dart';
+import 'package:flutter_application_2/view/catrogrypage.dart';
+import 'package:flutter_application_2/view/forgotpage.dart';
+import 'package:flutter_application_2/view/homepage.dart';
 import 'package:flutter_application_2/view/offerpage.dart';
+import 'package:flutter_application_2/view/profilepage.dart';
 
-class BottomBar extends StatelessWidget {
+class BottomBar extends StatefulWidget {
+  @override
+  State<BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
   int pageIndex = 0;
+
   List pages = [
-    HomePage(),
+    MainPage(),
+    CategoryPage(),
     OfferPage(),
-    OfferPage(),
-    OfferPage(),
+    ForgotPage(),
+    ProfilePage(),
   ];
 
   @override
@@ -18,6 +29,11 @@ class BottomBar extends StatelessWidget {
     return Scaffold(
       body: pages[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
+          onTap: (newindex) {
+            setState(() {
+              pageIndex = newindex;
+            });
+          },
           currentIndex: pageIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
