@@ -1,6 +1,6 @@
 # Kada [കട]
 
-A new Flutter project.
+Kada - Ecommerce Mobile Application
 
 ## Getting Started
 
